@@ -7,7 +7,7 @@ In this project im using a nim seq to represent the stack and it's values are ob
 named values are added to a table (string, float) and passed as an argument to parseFormula along with the names which are then assigned to the stack elements when they are used.
 
 It can parse formulas in this schema: 
-["example*", "1/", "example2-" "example3"]
+["example*", "1/", "example2-", "example3"]
 
 it is calculated from right to left
 

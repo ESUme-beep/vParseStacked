@@ -65,7 +65,6 @@ proc parseForm(): stackElement =
       element.seStr = element.seStr[0 ..< element.seStr.high]
   else:
     element.seChr = '='
-  echo element
   return element
 
 proc stackAdd(): float =
@@ -88,8 +87,6 @@ proc stackDiv(): float =
   var
     arg1: float = dStack.pop.seFloat
     arg2: float = dStack.pop.seFloat
-  echo arg1
-  echo arg2
   if arg1 == -1.0 or arg2 == -1.0:
     return -1.0
   return arg1 / arg2
@@ -110,7 +107,6 @@ proc stackExc(excElement: stackElement): stackElement =
 proc parseFormula*(formula: openArray[string], valueTable: Table[string, float]): float =
   for fElement in formula:
     dStack.add(stackElement(seStr: fElement))
-  echo dStack
   while true:
     if len(dStack) > 0:
       curType = seType(dStack[dStack.high])
@@ -136,19 +132,14 @@ proc parseFormula*(formula: openArray[string], valueTable: Table[string, float])
         case stackChr:
           of '/':
             dStack.add(stackElement(seFloat: stackDiv(), seChr: '='))
-            echo dStack
           of '*':
             dStack.add(stackElement(seFloat: stackMul(), seChr: '='))
-            echo dStack
           of '+':
             dStack.add(stackElement(seFloat: stackAdd(), seChr: '='))
-            echo dStack
           of '-':
             dStack.add(stackElement(seFloat: stackSub(), seChr: '='))
-            echo dStack
           of '=':
             dStack.add(stackExc(dStack.pop))
-            echo dStack
           else: break
 
       of "int":
